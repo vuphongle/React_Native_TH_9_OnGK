@@ -68,9 +68,9 @@ const animaltype = [
 ];
 
 const bannerImages = [
-  'https://via.placeholder.com/400x200',
-  'https://via.placeholder.com/400x200',
-  'https://via.placeholder.com/400x200',
+  require('./assets/Banner1.jpg'),
+  require('./assets/Banner2.jpg'),
+  require('./assets/Banner3.jpg'),
 ];
 
 export default function App() {
@@ -119,7 +119,8 @@ export default function App() {
           {bannerImages.map((image, index) => (
             <Image
               key={index}
-              source={{ uri: image }}
+              // source={{uri: image }} dùng link ảnh
+              source = {image}
               style={styles.bannerImage}
             />
           ))}
@@ -163,6 +164,29 @@ export default function App() {
         ))}
       </View>
 
+      {/* Animal List */}
+      <View style={styles.animalListHeader}>
+      </View>
+      <FlatList
+        data={animal}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={2}
+        renderItem={({ item }) => (
+          <View style={styles.animalItem}>
+            <Image
+              source={{ uri: item.image }}
+              style={styles.animalImage}
+            />
+            <View style={styles.animalInfo}>
+              <Text style={styles.animalName}>{item.name}</Text>
+              <Text>Gender: {item.gender}</Text>
+              <Text>YOB: {item.yob}</Text>
+              <Text>Location: {item.location}</Text>
+            </View>
+          </View>
+        )}
+        contentContainerStyle={{ paddingBottom: 20 }}
+      />
     </SafeAreaView>
   );
 }
@@ -283,5 +307,34 @@ const styles = StyleSheet.create({
     color: '#ff6347',
     fontWeight: 'bold',
     marginRight: 10,
+  },
+  animalListHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  animalItem: {
+    flex: 1,
+    backgroundColor: '#f9f9f9',
+    margin: 5,
+    padding: 10,
+    borderRadius: 10,
+    flexDirection: 'column', 
+    alignItems: 'flex-start',
+  },
+  animalImage: {
+    width: '100%',
+    height: 150,
+    borderRadius: 10, 
+    marginBottom: 10,
+  },
+  animalInfo: {
+    alignSelf: 'flex-start',
+  },
+  animalName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
   },
 });
