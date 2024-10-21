@@ -1,5 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, View, TextInput, Image, ScrollView, FlatList, TouchableOpacity} from 'react-native';
+import Icon from "react-native-vector-icons/MaterialIcons"
 
 const animal = [
   {
@@ -57,18 +57,70 @@ const animaltype = [
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      {/*Header*/}
+      <View style={styles.header}>
+        <TouchableOpacity>
+          <Icon name = "menu" size = {28}/>
+        </TouchableOpacity>
+        <Text style = {styles.title}>
+          PET ADOPTION
+        </Text>
+      </View>
+
+      {/*Search*/}
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search for pets"
+        />
+
+        <Icon
+          name = "search"
+          size= {20}
+          color="#ccc"
+          style={styles.searchIconRight}
+        />
+      </View>
+      
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
+    padding: 8,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 10, 
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    flex: 1,
+  },
+  searchContainer: {
+    // position: 'relative',
+    // marginBottom: 20,
+  },
+  searchInput: {
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 20,
+    paddingLeft: 15,
+    paddingRight: 35, 
+  },
+  searchIconRight: {
+    position: 'absolute',
+    right: 20,
+    top: 10,
   },
 });
