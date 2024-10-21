@@ -46,6 +46,15 @@ const animal = [
   },
 ];
 
+const animaltype = [
+  { animaltype: 'Cat', image: 'https://via.placeholder.com/80' },
+  { animaltype: 'Dog', image: 'https://via.placeholder.com/80' },
+  { animaltype: 'Rabbit', image: 'https://via.placeholder.com/80' },
+  { animaltype: 'Bird', image: 'https://via.placeholder.com/80' },
+  { animaltype: 'Fish', image: 'https://via.placeholder.com/80' },
+  { animaltype: 'Others', image: 'https://via.placeholder.com/80' },
+];
+
 export default function App() {
   return (
     <View style={styles.container}>
