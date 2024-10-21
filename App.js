@@ -1,6 +1,51 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
+const animal = [
+  {
+    name: 'Olivia',
+    gender: 'Female',
+    yob: 2018,
+    location: 'Hanoi',
+    image: 'https://via.placeholder.com/80',
+  },
+  {
+    name: 'Pedro',
+    gender: 'Male',
+    yob: 2017,
+    location: 'Ho Chi Minh City',
+    image: 'https://via.placeholder.com/80',
+  },
+  {
+    name: 'Lily',
+    gender: 'Female',
+    yob: 2019,
+    location: 'Da Nang',
+    image: 'https://via.placeholder.com/80',
+  },
+  {
+    name: 'Max',
+    gender: 'Male',
+    yob: 2016,
+    location: 'Hai Phong',
+    image: 'https://via.placeholder.com/80',
+  },
+  {
+    name: 'Bella',
+    gender: 'Female',
+    yob: 2020,
+    location: 'Can Tho',
+    image: 'https://via.placeholder.com/80',
+  },
+  {
+    name: 'Charlie',
+    gender: 'Male',
+    yob: 2015,
+    location: 'Hue',
+    image: 'https://via.placeholder.com/80',
+  },
+];
+
 export default function App() {
   return (
     <View style={styles.container}>
