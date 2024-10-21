@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { 
   View, 
   Text, 
@@ -19,52 +20,61 @@ const animal = [
     gender: 'Female',
     yob: 2018,
     location: 'Hanoi',
-    image: 'https://via.placeholder.com/80',
+    image: require('./assets/example.png'),
   },
   {
     name: 'Pedro',
     gender: 'Male',
     yob: 2017,
     location: 'Ho Chi Minh City',
-    image: 'https://via.placeholder.com/80',
+    image: require('./assets/example.png'),
   },
   {
     name: 'Lily',
     gender: 'Female',
     yob: 2019,
     location: 'Da Nang',
-    image: 'https://via.placeholder.com/80',
+    image: require('./assets/example.png'),
   },
   {
     name: 'Max',
     gender: 'Male',
     yob: 2016,
     location: 'Hai Phong',
-    image: 'https://via.placeholder.com/80',
+    image: require('./assets/example.png'),
   },
   {
     name: 'Bella',
     gender: 'Female',
     yob: 2020,
     location: 'Can Tho',
-    image: 'https://via.placeholder.com/80',
+    image: require('./assets/example.png'),
   },
   {
     name: 'Charlie',
     gender: 'Male',
     yob: 2015,
     location: 'Hue',
-    image: 'https://via.placeholder.com/80',
+    image: require('./assets/example.png'),
   },
 ];
 
+const imageMap = {
+  'Cat': require('./assets/example.png'),
+  'Dog': require('./assets/example.png'),
+  'Rabbit': require('./assets/example.png'),
+  'Bird': require('./assets/example.png'),
+  'Fish': require('./assets/example.png'),
+  'Others': require('./assets/example.png'), // Sửa lỗi chính tả từ 'Orthers' thành 'Others'
+};
+
 const animaltype = [
-  { animaltype: 'Cat', image: 'https://via.placeholder.com/80' },
-  { animaltype: 'Dog', image: 'https://via.placeholder.com/80' },
-  { animaltype: 'Rabbit', image: 'https://via.placeholder.com/80' },
-  { animaltype: 'Bird', image: 'https://via.placeholder.com/80' },
-  { animaltype: 'Fish', image: 'https://via.placeholder.com/80' },
-  { animaltype: 'Others', image: 'https://via.placeholder.com/80' },
+  { animaltype: 'Cat', image: 'Cat'},
+  { animaltype: 'Dog', image: 'Dog'},
+  { animaltype: 'Rabbit', image: 'Rabbit'},
+  { animaltype: 'Bird', image: 'Bird'},
+  { animaltype: 'Fish', image: 'Fish'},
+  { animaltype: 'Others', image: 'Others'},
 ];
 
 const bannerImages = [
@@ -74,7 +84,21 @@ const bannerImages = [
 ];
 
 export default function App() {
+
+  useEffect(() => {
+    // Fetch data từ MockAPI
+    axios.get('https://6707f41d8e86a8d9e42d968b.mockapi.io/animal')
+      .then(response => setAnimals(response.data))
+      .catch(error => console.error(error));
+
+    axios.get('https://6707f41d8e86a8d9e42d968b.mockapi.io/animaltype')
+      .then(response => setAnimaltypes(response.data))
+      .catch(error => console.error(error));
+  }, []);
+
   const [currentBanner, setCurrentBanner] = useState(0);
+  const [animals, setAnimals] = useState([]);
+  const [animaltypes, setAnimaltypes] = useState([]);
 
   const handleScroll = (event) => {
     const windowWidth = Dimensions.get('window').width;
@@ -120,7 +144,7 @@ export default function App() {
             <Image
               key={index}
               // source={{uri: image }} dùng link ảnh
-              source = {image}
+              source={image}
               style={styles.bannerImage}
             />
           ))}
@@ -152,41 +176,48 @@ export default function App() {
           <Text style={styles.showAll}>Show All</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.categoriesContainer}>
-        {animaltype.slice(0,3).map((item, index) => (
+      
+      <ScrollView 
+        horizontal 
+        showsHorizontalScrollIndicator={false} 
+        contentContainerStyle={styles.categoriesScrollContainer}
+        style={styles.categoriesScrollView}
+      >
+        {animaltypes.map((item, index) => (
           <View key={index} style={styles.categoryItem}>
             <Image
-              source={{ uri: item.image }}
+              source={imageMap[item.image]}
               style={styles.categoryImage}
             />
             <Text style={styles.categoryText}>{item.animaltype}</Text>
           </View>
         ))}
-      </View>
+      </ScrollView>
 
       {/* Animal List */}
-      <View style={styles.animalListHeader}>
-      </View>
-      <FlatList
-        data={animal}
-        keyExtractor={(item, index) => index.toString()}
-        numColumns={2}
-        renderItem={({ item }) => (
-          <View style={styles.animalItem}>
-            <Image
-              source={{ uri: item.image }}
-              style={styles.animalImage}
-            />
-            <View style={styles.animalInfo}>
-              <Text style={styles.animalName}>{item.name}</Text>
-              <Text>Gender: {item.gender}</Text>
-              <Text>YOB: {item.yob}</Text>
-              <Text>Location: {item.location}</Text>
+      <View style={styles.animalListContainer}>
+        <FlatList
+          data={animals}
+          keyExtractor={(item, index) => index.toString()}
+          numColumns={2}
+          renderItem={({ item }) => (
+            <View style={styles.animalItem}>
+              <Image
+                // source={item.image}
+                source={imageMap[item.image]}
+                style={styles.animalImage}
+              />
+              <View style={styles.animalInfo}>
+                <Text style={styles.animalName}>{item.name}</Text>
+                <Text>Gender: {item.gender}</Text>
+                <Text>YOB: {item.yob}</Text>
+                <Text>Location: {item.location}</Text>
+              </View>
             </View>
-          </View>
-        )}
-        contentContainerStyle={{ paddingBottom: 20 }}
-      />
+          )}
+          contentContainerStyle={{ paddingBottom: 20 }}
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -274,7 +305,7 @@ const styles = StyleSheet.create({
   activeDot: {
     backgroundColor: '#000',
   },
-   sectionTitle: {
+  sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginLeft: 10,
@@ -284,15 +315,23 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
+    paddingHorizontal: 10, // Thêm padding để tạo khoảng cách
   },
-  categoriesContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  categoriesScrollView: {
+    // Đảm bảo ScrollView không chiếm quá nhiều không gian
+    maxHeight: 120,
     marginBottom: 20,
+  },
+  categoriesScrollContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    // Đảm bảo các mục không bị nén lại
+    alignItems: 'center',
   },
   categoryItem: {
     alignItems: 'center',
-    width: '30%',
+    width: 80,
+    marginRight: 15,
   },
   categoryImage: {
     width: 80,
@@ -308,11 +347,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginRight: 10,
   },
-  animalListHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
+  animalListContainer: {
+    flex: 1,
+    paddingHorizontal: 10,
   },
   animalItem: {
     flex: 1,
