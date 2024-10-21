@@ -144,6 +144,25 @@ export default function App() {
         ))}
       </View>
       
+      {/* Categories và Show All */}
+      <View style={styles.categoriesHeader}>
+        <Text style={styles.sectionTitle}>Categories</Text>
+        <TouchableOpacity>
+          <Text style={styles.showAll}>Show All</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.categoriesContainer}>
+        {animaltype.slice(0,3).map((item, index) => (
+          <View key={index} style={styles.categoryItem}>
+            <Image
+              source={{ uri: item.image }}
+              style={styles.categoryImage}
+            />
+            <Text style={styles.categoryText}>{item.animaltype}</Text>
+          </View>
+        ))}
+      </View>
+
     </SafeAreaView>
   );
 }
@@ -230,5 +249,39 @@ const styles = StyleSheet.create({
   },
   activeDot: {
     backgroundColor: '#000',
+  },
+   sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginLeft: 10,
+  },
+  categoriesHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  categoriesContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  categoryItem: {
+    alignItems: 'center',
+    width: '30%',
+  },
+  categoryImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    marginBottom: 5,
+  },
+  categoryText: {
+    textAlign: 'center',
+  },
+  showAll: {
+    color: '#ff6347',
+    fontWeight: 'bold',
+    marginRight: 10,
   },
 });
