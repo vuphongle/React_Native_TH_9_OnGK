@@ -235,18 +235,19 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#fff',
     elevation: 4,
+    flex: 0.05,
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-    flex: 1,
   },
   searchContainer: {
     position: 'relative',
     paddingHorizontal: 16,
     marginBottom: 20,
     backgroundColor: '#fff',
+    flex: 0.1,
   },
   searchInput: {
     height: 40,
@@ -265,6 +266,7 @@ const styles = StyleSheet.create({
   bannerContainer: {
     position: 'relative',
     marginBottom: 10,
+    flex: 0.3,
   },
   banner: {
     width: Dimensions.get('window').width,
@@ -316,6 +318,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
     paddingHorizontal: 10, // Thêm padding để tạo khoảng cách
+    flex: 0.05,
   },
   categoriesScrollView: {
     // Đảm bảo ScrollView không chiếm quá nhiều không gian
@@ -327,6 +330,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     // Đảm bảo các mục không bị nén lại
     alignItems: 'center',
+    flex: 0.15,
   },
   categoryItem: {
     alignItems: 'center',
@@ -348,7 +352,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   animalListContainer: {
-    flex: 1,
+    flex: 0.4,
     paddingHorizontal: 10,
   },
   animalItem: {
